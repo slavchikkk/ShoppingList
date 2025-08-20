@@ -416,3 +416,17 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+ShoppingList/ShoppingList.sln
+ShoppingList/ShoppingList/Platforms/iOS/Info.plist
+ShoppingList/ShoppingList/Platforms/MacCatalyst/Entitlements.plist
+*.plist
+*.xml
+*.manifest
+ShoppingList/ShoppingList/Resources/Raw/AboutAssets.txt
+ShoppingList/ShoppingList/Resources/Splash/splash.svg
+*.ttf
+*.json
+*.appxmanifest
+ShoppingList/ShoppingList/Resources/Images/dotnet_bot.png
+ShoppingList/ShoppingList/Resources/AppIcon/appicon.svg
+ShoppingList/ShoppingList/Resources/AppIcon/appiconfg.svg

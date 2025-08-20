@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppingList.CreationNewListPage"
+             Title="Создание списка">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="200, *">
+
+            <!-- Первое поле (занимает первую колонку) -->
+            <Entry Grid.Row="0" Grid.Column="0"
+           Placeholder="Первое поле"
+           WidthRequest="200"
+           HorizontalOptions="Center"/>
+
+            <!-- Второе поле (под первым, та же ширина) -->
+            <Entry Grid.Row="1" Grid.Column="0"
+           Placeholder="Второе поле"
+           WidthRequest="200"
+           HorizontalOptions="Start"/>
+
+            <!-- Третье поле (справа от первого, на том же уровне) -->
+            <Entry Grid.Row="0" Grid.Column="1"
+           Placeholder="Третье поле"
+           WidthRequest="50"
+           HorizontalOptions="End"/>
+
+            <!-- Четвертое поле (под третьим, та же ширина) -->
+            <Entry Grid.Row="1" Grid.Column="1"
+           Placeholder="Четвертое поле"
+           WidthRequest="50"
+           HorizontalOptions="End"/>
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

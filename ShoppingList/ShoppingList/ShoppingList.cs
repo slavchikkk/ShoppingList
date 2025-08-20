@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ShoppingList
+{
+    class ShoppingList
+    {
+      private static int nextId = 1;
+
+      public int Id { get; set; }
+      public string ListName { get; set; }
+      public List<ShoppingItem> Items { get; set; }
+
+      public ShoppingList(string listName)
+      {
+         Id = nextId++;
+         this.ListName = listName;
+         var ListOfItems = new List<ShoppingItem>();
+      }
+
+
+    }
+}
