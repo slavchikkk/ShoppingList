@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingList
 {
-    class ShoppingList
+    public class ShoppingList
     {
       private static int nextId = 1;
 
@@ -14,11 +14,11 @@ namespace ShoppingList
       public string ListName { get; set; }
       public List<ShoppingItem> Items { get; set; }
 
-      public ShoppingList(string listName)
+      public ShoppingList(string listName, List<ShoppingItem> items)
       {
          Id = nextId++;
          this.ListName = listName;
-         var ListOfItems = new List<ShoppingItem>();
+         this.Items = items;
       }
 
 

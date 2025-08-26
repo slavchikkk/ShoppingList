@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace ShoppingList
 {
-    class ShoppingItem
+    public class ShoppingItem
     {
       public string Name {  get; set; }
       public int Amount { get; set; }
-
+      public string Unit { get; set; }
       public bool IsBought  { get; set; }
 
-      public ShoppingItem(string Name, int Amount) 
+      public ShoppingItem(string Name, int Amount, string Unit) 
       {
         this.Name = Name;
         this.Amount = Amount;
+        this.Unit = Unit;
         IsBought = false;
       }
     }

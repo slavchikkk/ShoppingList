@@ -68,10 +68,19 @@
 	  <Compile Update="CreationNewListPage.xaml.cs">
 	    <DependentUpon>CreationNewListPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="AllShoppingListPage.xaml.cs">
+	    <DependentUpon>AllShoppingListPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="CreationNewListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AllShoppingListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ShoppingListDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

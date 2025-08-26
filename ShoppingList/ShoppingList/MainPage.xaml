@@ -4,26 +4,32 @@
              x:Class="ShoppingList.MainPage"
              Background="White">
 
-    <Grid>
-        <Label Text="Ваше приложение"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               FontSize="20"/>
-        <Button x:Name="FloatingActionButton"
-                Text="+"
-                FontSize="28"
-                FontAttributes="Bold"
+    <Grid RowDefinitions="*,*">
+        <Button Grid.Row="0"
+                x:Name="FloatingActionButton"
+                Text="Создать новый список"
+                FontSize="20"
                 TextColor="White"
                 BackgroundColor="#FF4081"
-                HeightRequest="70"
-                WidthRequest="70"
-                CornerRadius="35"
-                HorizontalOptions="End"
+                HorizontalOptions="Center"
                 VerticalOptions="End"
-                Margin="30"
+                Margin="10"
                 Clicked="OnAddButtonClicked"
                 Pressed="OnButtonPressed"
                 Released="OnButtonReleased">
+        </Button>
+        <Button Grid.Row="1"
+            x:Name="FloatingActionButton2"
+            Text="Созданные списки"
+            FontSize="20"
+            TextColor="White"
+            BackgroundColor="#FF4081"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            Margin="10"
+            Clicked="OnShowAllListsButtonClicked"
+            Pressed="OnButtonPressed"
+            Released="OnButtonReleased">
         </Button>
     </Grid>
 </ContentPage>

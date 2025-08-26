@@ -5,32 +5,39 @@
              Title="Создание списка">
 
     <ContentPage.Content>
-        <Grid Padding="20">
+        <Grid Padding="20" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*"
+              ColumnDefinitions="*,*">
 
-            <Entry VerticalOptions="Start" 
+            <Entry Grid.Row="0" Grid.ColumnSpan="2"
+                   Unfocused="EnterListNameCompleted"
+                   VerticalOptions="Center" 
                    HorizontalOptions="Center"
                    Placeholder="Введите название списка">
             </Entry>
 
-            <Entry
-                VerticalOptions="Start"
-                HorizontalOptions="Start"
+            <Entry Grid.Row="1" Grid.Column="0"
+                x:Name="ItemNameEntry"
+                Unfocused="EnterItemNameCompleted"
+                VerticalOptions="Center"
+                HorizontalOptions="Fill"
                 Placeholder="Введите ингридиент"
-                Margin="25">
+                Margin="0,10">
             </Entry>
-
-            <Entry
-                VerticalOptions="Start"
-                HorizontalOptions="End"
+            
+            <Entry Grid.Row="1" Grid.Column="1"
+                x:Name="AmountItemEntry"
+                Unfocused="EnterAmountItemCompleted"
+                VerticalOptions="Center"
+                HorizontalOptions="Fill"
                 Placeholder="Введите количество"
-                Margin="25">
+                Margin="0,10">
             </Entry>
 
-            <Picker x:Name="UnitPicker"
-                VerticalOptions="Start"
-                HorizontalOptions="End"
-                Margin="0, 20"
-                SelectedItem="0">
+            <Picker Grid.Row="2" Grid.ColumnSpan="2"
+                x:Name="UnitPicker"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Margin="0,10">
                 <Picker.Items>
                     <x:String>Кг</x:String>
                     <x:String>Шт</x:String>
@@ -38,32 +45,36 @@
                 </Picker.Items>
             </Picker>
 
-            <Button 
-                VerticalOptions="Start"
-                HorizontalOptions="Center"
-                Text="Добавить ингридиент"
-                Margin="70">
-            </Button>
-
-            <ScrollView
-                VerticalOptions="Start"
-                HorizontalOptions="Center"
-                Margin="50, 130"
-                HeightRequest="100">
-                <Label FontSize="20">
-                    <Label.Text>
-                        <x:String>ScrollView может также быть вложенным элементом внтри других элементов управления и контейнеров компоновки. В этом случае рекомендуется явным образом устанавливать для ScrollView высоту с помощью свойства HeightRequest. Например:</x:String>
-                    </Label.Text>
-                </Label>
-            </ScrollView>
-
-            <Button 
+            
+            <Button Grid.Row="3" Grid.ColumnSpan="2"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
+                Text="Добавить ингридиент"
+                Margin="0,10"
+                Clicked="AddIgridient">
+            </Button>
+
+           
+            <ScrollView Grid.Row="4" Grid.ColumnSpan="2"
+                x:Name="ItemsOutput"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill"
+                Margin="0,10"
+                HeightRequest="150">
+                <VerticalStackLayout x:Name="ItemsLayout">
+                    <Label FontSize="16" Text="Cписок ингредиентов">
+                    </Label>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            
+            <Button Grid.Row="5" Grid.ColumnSpan="2"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
                 Text="Подтвердить"
-                Margin="70">
+                Margin="0,20"
+                Clicked="CreateNewShoppingList">
             </Button>
         </Grid>
     </ContentPage.Content>
-
 </ContentPage>
