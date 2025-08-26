@@ -5,32 +5,64 @@
              Title="Создание списка">
 
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="200, *">
+        <Grid Padding="20">
 
-            <!-- Первое поле (занимает первую колонку) -->
-            <Entry Grid.Row="0" Grid.Column="0"
-           Placeholder="Первое поле"
-           WidthRequest="200"
-           HorizontalOptions="Center"/>
+            <Entry VerticalOptions="Start" 
+                   HorizontalOptions="Center"
+                   Placeholder="Введите название списка">
+            </Entry>
 
-            <!-- Второе поле (под первым, та же ширина) -->
-            <Entry Grid.Row="1" Grid.Column="0"
-           Placeholder="Второе поле"
-           WidthRequest="200"
-           HorizontalOptions="Start"/>
+            <Entry
+                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                Placeholder="Введите ингридиент"
+                Margin="25">
+            </Entry>
 
-            <!-- Третье поле (справа от первого, на том же уровне) -->
-            <Entry Grid.Row="0" Grid.Column="1"
-           Placeholder="Третье поле"
-           WidthRequest="50"
-           HorizontalOptions="End"/>
+            <Entry
+                VerticalOptions="Start"
+                HorizontalOptions="End"
+                Placeholder="Введите количество"
+                Margin="25">
+            </Entry>
 
-            <!-- Четвертое поле (под третьим, та же ширина) -->
-            <Entry Grid.Row="1" Grid.Column="1"
-           Placeholder="Четвертое поле"
-           WidthRequest="50"
-           HorizontalOptions="End"/>
+            <Picker x:Name="UnitPicker"
+                VerticalOptions="Start"
+                HorizontalOptions="End"
+                Margin="0, 20"
+                SelectedItem="0">
+                <Picker.Items>
+                    <x:String>Кг</x:String>
+                    <x:String>Шт</x:String>
+                    <x:String>Л</x:String>
+                </Picker.Items>
+            </Picker>
 
+            <Button 
+                VerticalOptions="Start"
+                HorizontalOptions="Center"
+                Text="Добавить ингридиент"
+                Margin="70">
+            </Button>
+
+            <ScrollView
+                VerticalOptions="Start"
+                HorizontalOptions="Center"
+                Margin="50, 130"
+                HeightRequest="100">
+                <Label FontSize="20">
+                    <Label.Text>
+                        <x:String>ScrollView может также быть вложенным элементом внтри других элементов управления и контейнеров компоновки. В этом случае рекомендуется явным образом устанавливать для ScrollView высоту с помощью свойства HeightRequest. Например:</x:String>
+                    </Label.Text>
+                </Label>
+            </ScrollView>
+
+            <Button 
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Text="Подтвердить"
+                Margin="70">
+            </Button>
         </Grid>
     </ContentPage.Content>
 

@@ -5,13 +5,10 @@
              Background="White">
 
     <Grid>
-        <!-- Основной контент вашего приложения -->
         <Label Text="Ваше приложение"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                FontSize="20"/>
-
-        <!-- Анимированная круглая кнопка -->
         <Button x:Name="FloatingActionButton"
                 Text="+"
                 FontSize="28"
