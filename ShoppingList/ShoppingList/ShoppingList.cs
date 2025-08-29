@@ -8,7 +8,7 @@ namespace ShoppingList
 {
     public class ShoppingList
     {
-      private static int nextId = 1;
+      public static int nextId = 1;
 
       public int Id { get; set; }
       public string ListName { get; set; }

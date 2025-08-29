@@ -10,6 +10,7 @@ public partial class ShoppingListDetailPage : ContentPage
     _shoppingList = shoppingList;
     BuildUI();
   }
+
   private void BuildUI()
   {
     var scrollView = new ScrollView();
@@ -27,6 +28,7 @@ public partial class ShoppingListDetailPage : ContentPage
     };
     backButton.Clicked += async (s, e) => await Navigation.PopAsync();
     mainLayout.Children.Add(backButton);
+
     var titleLabel = new Label
     {
       Text = _shoppingList.ListName,
@@ -35,6 +37,17 @@ public partial class ShoppingListDetailPage : ContentPage
       HorizontalOptions = LayoutOptions.Center
     };
     mainLayout.Children.Add(titleLabel);
+
+    // Кнопка добавления нового элемента
+    var addButton = new Button
+    {
+      Text = "Добавить товар",
+      BackgroundColor = Color.FromArgb("#007bff"),
+      TextColor = Colors.White,
+      Margin = new Thickness(0, 10, 0, 20)
+    };
+    addButton.Clicked += OnAddItemClicked;
+    mainLayout.Children.Add(addButton);
 
     // Элементы списка
     if (_shoppingList.Items.Count == 0)
@@ -78,40 +91,148 @@ public partial class ShoppingListDetailPage : ContentPage
     var frame = new Frame
     {
       CornerRadius = 8,
-      BackgroundColor = Color.FromArgb("#FFFFFF"),
+      BackgroundColor = item.IsBought ? Color.FromArgb("#e8f5e8") : Color.FromArgb("#FFFFFF"),
       BorderColor = Color.FromArgb("#E9ECEF"),
       Padding = new Thickness(12)
     };
 
-    var contentLayout = new HorizontalStackLayout
+    var contentLayout = new Grid
     {
-      Spacing = 10,
+      ColumnDefinitions =
+            {
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) },
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) }
+            },
+      RowDefinitions =
+            {
+                new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) }
+            }
+    };
+
+    // Чекбокс для отметки покупки
+    var checkBox = new CheckBox
+    {
+      IsChecked = item.IsBought,
+      Color = Color.FromArgb("#28a745"),
       VerticalOptions = LayoutOptions.Center
     };
+    checkBox.CheckedChanged += (s, e) => OnItemCheckedChanged(item, e.Value);
+    Grid.SetColumn(checkBox, 0);
+    Grid.SetRow(checkBox, 0);
+    contentLayout.Children.Add(checkBox);
 
     // Название элемента
     var nameLabel = new Label
     {
       Text = item.Name,
       FontSize = 16,
-      TextColor = Color.FromArgb("#212529"),
-      VerticalOptions = LayoutOptions.Center
+      TextColor = item.IsBought ? Color.FromArgb("#6c757d") : Color.FromArgb("#212529"),
+      VerticalOptions = LayoutOptions.Center,
+      TextDecorations = item.IsBought ? TextDecorations.Strikethrough : TextDecorations.None
     };
+    Grid.SetColumn(nameLabel, 1);
+    Grid.SetRow(nameLabel, 0);
+    contentLayout.Children.Add(nameLabel);
 
     // Количество и единица измерения
     var quantityLabel = new Label
     {
       Text = $"{item.Amount} {item.Unit}",
       FontSize = 14,
-      TextColor = Color.FromArgb("#6C757D"),
+      TextColor = item.IsBought ? Color.FromArgb("#6c757d") : Color.FromArgb("#6C757D"),
       VerticalOptions = LayoutOptions.Center,
-      FontAttributes = FontAttributes.Bold
+      FontAttributes = FontAttributes.Bold,
+      TextDecorations = item.IsBought ? TextDecorations.Strikethrough : TextDecorations.None
     };
-
-    contentLayout.Children.Add(nameLabel);
+    Grid.SetColumn(quantityLabel, 2);
+    Grid.SetRow(quantityLabel, 0);
     contentLayout.Children.Add(quantityLabel);
-    frame.Content = contentLayout;
 
+    // Кнопка удаления элемента
+    var deleteButton = new Button
+    {
+      Text = "Удалить",
+      FontSize = 14,
+      BackgroundColor = Colors.Transparent,
+      TextColor = Color.FromArgb("#DC3545"),
+      WidthRequest = 90,
+      HeightRequest = 40,
+      CornerRadius = 15,
+      Margin = new Thickness(15, 0, 0, 0)
+    };
+    deleteButton.Clicked += (s, e) => OnDeleteItemClicked(item);
+
+    // Добавляем кнопку удаления во вторую строку
+    Grid.SetColumn(deleteButton, 2);
+    Grid.SetRow(deleteButton, 0);
+    contentLayout.Children.Add(deleteButton);
+
+    frame.Content = contentLayout;
     return frame;
+  }
+
+  private void OnItemCheckedChanged(ShoppingItem item, bool isChecked)
+  {
+    item.IsBought = isChecked;
+    // Перестраиваем UI для отражения изменений
+    BuildUI();
+  }
+
+  private async void OnDeleteItemClicked(ShoppingItem item)
+  {
+    bool confirm = await DisplayAlert(
+        "Подтверждение удаления",
+        $"Вы уверены, что хотите удалить \"{item.Name}\" из списка?",
+        "Да", "Нет");
+
+    if (confirm)
+    {
+      _shoppingList.Items.Remove(item);
+      BuildUI();
+    }
+  }
+
+  private async void OnAddItemClicked(object sender, EventArgs e)
+  {
+    // Запрос названия товара
+    string name = await DisplayPromptAsync(
+        "Добавить товар",
+        "Введите название товара:",
+        "Добавить",
+        "Отмена",
+        placeholder: "Название товара");
+
+    if (string.IsNullOrWhiteSpace(name))
+      return;
+
+    // Запрос количества - ИСПРАВЛЕННЫЙ ВЫЗОВ
+    string amountStr = await DisplayPromptAsync(
+        "Количество",
+        "Введите количество:",
+        "OK",
+        "Отмена",
+        initialValue: "1",
+        keyboard: Keyboard.Numeric);
+
+    if (string.IsNullOrWhiteSpace(amountStr) || !int.TryParse(amountStr, out int amount))
+      amount = 1;
+
+    // Запрос единицы измерения
+    string unit = await DisplayPromptAsync(
+        "Единица измерения",
+        "Введите единицу измерения (шт, кг, г, л и т.д.):",
+        "Готово",
+        "Отмена",
+        placeholder: "шт");
+
+    if (string.IsNullOrWhiteSpace(unit))
+      unit = "шт";
+
+    // Добавляем новый товар
+    var newItem = new ShoppingItem(name, amount, unit);
+    _shoppingList.Items.Add(newItem);
+
+    BuildUI();
   }
 }
