@@ -1,13 +1,23 @@
 namespace ShoppingList;
-
+/// <summary>
+/// Логика и дизайн для страницы.
+/// </summary>
 public partial class AllShoppingListPage : ContentPage
 {
+  /// <summary>
+  /// Инициализация разметки и построение интерфейса.
+  /// </summary>
   public AllShoppingListPage()
   {
     InitializeComponent();
     BuildUI();
   }
 
+  /// <summary>
+  /// Оформления дизайна для вывода списка покупок.
+  /// </summary>
+  /// <param name="shoppingList">Список покупок для отображения.</param>
+  /// <returns>Интерфесное окно.</returns>
   private Frame CreateListCard(ShoppingList shoppingList)
   {
     var frame = new Frame
@@ -81,6 +91,10 @@ public partial class AllShoppingListPage : ContentPage
     return frame;
   }
 
+  /// <summary>
+  /// Оформленние дизайна и логики для удаления списка покупок.
+  /// </summary>
+  /// <param name="shoppingList">Список покупок для удаления.</param>
   private async void OnDeleteListClicked(ShoppingList shoppingList)
   {
     bool confirm = await DisplayAlert(
@@ -97,11 +111,18 @@ public partial class AllShoppingListPage : ContentPage
     }
   }
 
+  /// <summary>
+  /// Реализация перехода на другую страницу после нажатия на список.
+  /// </summary>
+  /// <param name="shoppingList">Выбранный для открытия список покупок.</param>
   private async void OnListTapped(ShoppingList shoppingList)
   {
     await Navigation.PushAsync(new ShoppingListDetailPage(shoppingList));
   }
 
+  /// <summary>
+  /// Построение графического интерфейса.
+  /// </summary>
   private void BuildUI()
   {
     var scrollView = new ScrollView();
@@ -125,7 +146,6 @@ public partial class AllShoppingListPage : ContentPage
     }
     else
     {
-      // Добавляем каждый список в интерфейс
       foreach (var shoppingList in AllShoppingLists.AllLists)
       {
         var listCard = CreateListCard(shoppingList);

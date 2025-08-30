@@ -1,9 +1,16 @@
 namespace ShoppingList;
 
+/// <summary>
+/// Страница с полным видом списка покупок
+/// </summary>
 public partial class ShoppingListDetailPage : ContentPage
 {
   private ShoppingList _shoppingList;
 
+  /// <summary>
+  /// Инициализация интерфейса страницы
+  /// </summary>
+  /// <param name="shoppingList"></param>
   public ShoppingListDetailPage(ShoppingList shoppingList)
   {
     InitializeComponent();
@@ -11,6 +18,9 @@ public partial class ShoppingListDetailPage : ContentPage
     BuildUI();
   }
 
+  /// <summary>
+  /// Интерфейс страницы
+  /// </summary>
   private void BuildUI()
   {
     var scrollView = new ScrollView();
@@ -85,9 +95,13 @@ public partial class ShoppingListDetailPage : ContentPage
     Content = scrollView;
   }
 
+  /// <summary>
+  /// Интерфейс списка покупок
+  /// </summary>
+  /// <param name="item">Список покупок для отображения</param>
+  /// <returns></returns>
   private Frame CreateItemCard(ShoppingItem item)
   {
-    // Создаем карточку для элемента списка
     var frame = new Frame
     {
       CornerRadius = 8,
@@ -110,7 +124,6 @@ public partial class ShoppingListDetailPage : ContentPage
             }
     };
 
-    // Чекбокс для отметки покупки
     var checkBox = new CheckBox
     {
       IsChecked = item.IsBought,
@@ -122,7 +135,6 @@ public partial class ShoppingListDetailPage : ContentPage
     Grid.SetRow(checkBox, 0);
     contentLayout.Children.Add(checkBox);
 
-    // Название элемента
     var nameLabel = new Label
     {
       Text = item.Name,
@@ -135,7 +147,6 @@ public partial class ShoppingListDetailPage : ContentPage
     Grid.SetRow(nameLabel, 0);
     contentLayout.Children.Add(nameLabel);
 
-    // Количество и единица измерения
     var quantityLabel = new Label
     {
       Text = $"{item.Amount} {item.Unit}",
@@ -149,7 +160,6 @@ public partial class ShoppingListDetailPage : ContentPage
     Grid.SetRow(quantityLabel, 0);
     contentLayout.Children.Add(quantityLabel);
 
-    // Кнопка удаления элемента
     var deleteButton = new Button
     {
       Text = "Удалить",
@@ -163,7 +173,6 @@ public partial class ShoppingListDetailPage : ContentPage
     };
     deleteButton.Clicked += (s, e) => OnDeleteItemClicked(item);
 
-    // Добавляем кнопку удаления во вторую строку
     Grid.SetColumn(deleteButton, 2);
     Grid.SetRow(deleteButton, 0);
     contentLayout.Children.Add(deleteButton);
@@ -172,6 +181,11 @@ public partial class ShoppingListDetailPage : ContentPage
     return frame;
   }
 
+  /// <summary>
+  /// Изменение статуса предмета
+  /// </summary>
+  /// <param name="item">Предмет</param>
+  /// <param name="isChecked">Статус предмета</param>
   private void OnItemCheckedChanged(ShoppingItem item, bool isChecked)
   {
     item.IsBought = isChecked;
@@ -179,6 +193,10 @@ public partial class ShoppingListDetailPage : ContentPage
     BuildUI();
   }
 
+  /// <summary>
+  /// Удаление предмета из списка
+  /// </summary>
+  /// <param name="item">Предмет для удаления</param>
   private async void OnDeleteItemClicked(ShoppingItem item)
   {
     bool confirm = await DisplayAlert(
@@ -193,6 +211,11 @@ public partial class ShoppingListDetailPage : ContentPage
     }
   }
 
+  /// <summary>
+  /// Добавление предмета в список
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
   private async void OnAddItemClicked(object sender, EventArgs e)
   {
     // Запрос названия товара

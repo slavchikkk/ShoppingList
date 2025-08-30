@@ -2,19 +2,48 @@ using System.Xml;
 
 namespace ShoppingList;
 
+/// <summary>
+/// Страница создания нового списка покупок
+/// </summary>
 public partial class CreationNewListPage : ContentPage
 {
-  private string listName, itemName, selectedUnit;
+  /// <summary>
+  /// Имя списка
+  /// </summary>
+  private string listName { get; set; }
+
+  /// <summary>
+  /// Имя предмета для покупки
+  /// </summary>
+  private string itemName { get; set; }
+  /// <summary>
+  /// Единица измерения
+  /// </summary>
+  private string selectedUnit{ get; set; }
+  /// <summary>
+  /// Количество предметов для покупки
+  /// </summary>
   private int amountItem = 0;
+  /// <summary>
+  /// Все предметы для покупки
+  /// </summary>
   List<ShoppingItem> items = new List<ShoppingItem>();
 
+  /// <summary>
+  /// Инициализация страницы создания списка покупок
+  /// </summary>
   public CreationNewListPage()
   {
     InitializeComponent();
     UnitPicker.SelectedIndex = 0;
   }
 
-  void AddIgridient(object sender, EventArgs e)
+  /// <summary>
+  /// Добавление предмета в список 
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  void AddItem(object sender, EventArgs e)
   {
     if(string.IsNullOrEmpty(listName) || string.IsNullOrEmpty(itemName) || amountItem == 0)
     {
@@ -24,7 +53,7 @@ public partial class CreationNewListPage : ContentPage
     selectedUnit = UnitPicker.SelectedItem as string;
     var shoppingItem = new ShoppingItem(itemName, amountItem, selectedUnit);
     items.Add(shoppingItem);
-    DisplayAlert("Успех", "Ингредиент добавлен", "OK");
+    DisplayAlert("", "Ингредиент добавлен", "OK");
 
     string newItem = $"{itemName}: {amountItem} {selectedUnit}";
     var itemLabel = new Label
@@ -37,6 +66,11 @@ public partial class CreationNewListPage : ContentPage
     AmountItemEntry.Text = string.Empty;
   }
 
+  /// <summary>
+  /// Ввод названия списка завершен
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
   void EnterListNameCompleted(object sender, FocusEventArgs e)
   {
     var entry = (Entry)sender;
@@ -48,9 +82,13 @@ public partial class CreationNewListPage : ContentPage
       return;
     }
     entry.BackgroundColor = Colors.LightGreen;
-    DisplayAlert("Название", $"{listName}", "OK");
   }
 
+  /// <summary>
+  /// Ввод названия предмета для покупки завершен
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
   void EnterItemNameCompleted(object sender, FocusEventArgs e)
   {
     var entry = (Entry)sender;
@@ -62,9 +100,13 @@ public partial class CreationNewListPage : ContentPage
       return;
     }
     entry.BackgroundColor = Colors.LightGreen;
-    DisplayAlert("Название", $"{itemName}", "OK");
   }
 
+  /// <summary>
+  /// Ввод количества предметов завершен
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
   void EnterAmountItemCompleted(object sender, FocusEventArgs e)
   {
     var entry = (Entry)sender;
@@ -78,7 +120,6 @@ public partial class CreationNewListPage : ContentPage
     if (amountItem > 0)
     {
       entry.BackgroundColor = Colors.LightGreen;
-      DisplayAlert("Название", $"{amountItem}", "OK");
     }
     else
     {
@@ -87,6 +128,11 @@ public partial class CreationNewListPage : ContentPage
     }
   }
 
+  /// <summary>
+  /// Создать новый список покупок
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
   async void CreateNewShoppingList(object sender, EventArgs e)
   {
     if(items.Count == 0)

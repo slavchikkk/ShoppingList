@@ -6,21 +6,33 @@ using System.Threading.Tasks;
 
 namespace ShoppingList
 {
-    public class ShoppingList
+  /// <summary>
+  /// Список покупок
+  /// </summary>
+  public class ShoppingList
+  {
+    public static int nextId = 1;
+    
+    /// <summary>
+    /// Id списка
+    /// </summary>
+    public int Id { get; set; }
+    
+    /// <summary>
+    /// Название списка
+    /// </summary>
+    public string ListName { get; set; }
+    
+    /// <summary>
+    /// Предметы для покупки
+    /// </summary>
+    public List<ShoppingItem> Items { get; set; }
+
+    public ShoppingList(string listName, List<ShoppingItem> items)
     {
-      public static int nextId = 1;
-
-      public int Id { get; set; }
-      public string ListName { get; set; }
-      public List<ShoppingItem> Items { get; set; }
-
-      public ShoppingList(string listName, List<ShoppingItem> items)
-      {
-         Id = nextId++;
-         this.ListName = listName;
-         this.Items = items;
-      }
-
-
+      Id = nextId++;
+      this.ListName = listName;
+      this.Items = items;
     }
+  }
 }

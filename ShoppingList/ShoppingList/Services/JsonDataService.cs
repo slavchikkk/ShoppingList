@@ -12,11 +12,13 @@ namespace ShoppingList.Services
   public class JsonDataService : IJsonDataService
   {
     private readonly string filePath;
-
+    
+    /// <summary>
+    /// Создание пути к файлу, для дальнейшего использования другими методами
+    /// </summary>
     public JsonDataService()
     {
         filePath = Path.Combine(FileSystem.AppDataDirectory, "shopping_data.json");
-        Debug.WriteLine($"Путь к файлу: {filePath}");
     }
 
     public async Task SaveAllData()
@@ -94,6 +96,9 @@ namespace ShoppingList.Services
       }
     }
 
+    /// <summary>
+    /// Данные для сериализации в JSON файл
+    /// </summary>
     private class JsonData
     {
       public ObservableCollection<ShoppingList> ShoppingLists { get; set; }

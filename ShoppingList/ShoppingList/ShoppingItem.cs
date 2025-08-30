@@ -6,19 +6,37 @@ using System.Threading.Tasks;
 
 namespace ShoppingList
 {
-    public class ShoppingItem
-    {
-      public string Name {  get; set; }
-      public int Amount { get; set; }
-      public string Unit { get; set; }
-      public bool IsBought  { get; set; }
+  /// <summary>
+  /// Предмет покупки
+  /// </summary>
+  public class ShoppingItem
+  {
+    /// <summary>
+    /// Название
+    /// </summary>
+    public string Name {  get; set; }
 
-      public ShoppingItem(string Name, int Amount, string Unit) 
-      {
-        this.Name = Name;
-        this.Amount = Amount;
-        this.Unit = Unit;
-        IsBought = false;
-      }
+    /// <summary>
+    /// Количество
+    /// </summary>
+    public int Amount { get; set; }
+
+    /// <summary>
+    /// Единица измерения
+    /// </summary>
+    public string Unit { get; set; }
+
+    /// <summary>
+    /// Отметка о том куплен предмет или нет
+    /// </summary>
+    public bool IsBought  { get; set; }
+
+    public ShoppingItem(string Name, int Amount, string Unit) 
+    {
+      this.Name = Name;
+      this.Amount = Amount;
+      this.Unit = Unit;
+      IsBought = false;
     }
+  }
 }
